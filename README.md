@@ -4,7 +4,9 @@
   <img src="/infra/images/splash.bmp" width="550" alt="capa">
 </div>
 
-<img src="/infra/images/capa.png" width="200" alt="install">
+<div align="center">
+  <img src="/infra/images/capa.png" width="200" alt="install">
+</div>
 
 ## Execução
 
