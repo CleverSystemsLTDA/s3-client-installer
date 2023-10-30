@@ -2,8 +2,9 @@
 
 <div align="center">
   <img src="/infra/images/splash.bmp" width="550" alt="capa">
-  <img src="/infra/images/capa.png" width="200" alt="install">
 </div>
+
+<img src="/infra/images/capa.png" width="200" alt="install">
 
 ## Execução
 
@@ -29,12 +30,12 @@ appId: com.s3client-installer.ElectronAutoUpdate
 publish:
   provider: github
   token: { github_token }
-  rep: { nome_do_repositório }
+  repo: { nome_do_repositório }
   owner: { nome_da_organização }
   channel: latest
 ```
 
-Como gerar um Token do GitHub? [CLIQUE AQUI](https://docs.github.com/pt/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+Como gerar um GitHub Token? [CLIQUE AQUI](https://docs.github.com/pt/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
 Altere a versão do software de acordo no `package.json`
 
@@ -46,7 +47,11 @@ Execute o comando de deploy:
 $ npm run dist
 ```
 
-Entre na [Release](https://github.com/CleverSystemsLTDA/s3-client-installer/releases) e publique a versão gerada pelo deploy
+Entre na [Release](https://github.com/CleverSystemsLTDA/s3-client-installer/releases) na versão gerada pelo:
+
+- Clique no icone de editar
+- Clique em `Publish release`
+- O status irá trocar de `Draft` para `Latest`
 
 <hr/>
 <p align="center"><i>powered by</i><br/><br/>
