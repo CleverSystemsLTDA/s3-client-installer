@@ -55,11 +55,11 @@
 	},
 	"homepage": "https://github.com/CleverSystemsLTDA/s3-client-installer#readme",
 	"devDependencies": {
-		"electron": "^27.0.2"
+		"electron": "^27.0.2",
+		"electron-builder": "^24.6.4"
 	},
 	"dependencies": {
 		"dotenv": "^16.3.1",
-		"electron-builder": "^24.6.4",
 		"electron-updater": "^6.1.4",
 		"sucrase": "^3.34.0"
 	}
