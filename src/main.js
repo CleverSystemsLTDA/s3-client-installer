@@ -59,8 +59,6 @@ autoUpdater.on("update-available", () => {
 		.then((result) => {
 			if (result.response === 0) {
 				autoUpdater.downloadUpdate();
-			} else {
-				autoUpdater.quitAndInstall();
 			}
 		});
 });
