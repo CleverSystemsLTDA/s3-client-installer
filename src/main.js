@@ -58,18 +58,15 @@ autoUpdater.on("update-available", () => {
 		})
 		.then((result) => {
 			if (result.response === 0) {
-				autoUpdater.downloadUpdate();
+				autoUpdater.checkForUpdates();
 			}
 		});
 });
 
 autoUpdater.on("update-downloaded", () => {
-	dialog.showMessageBox(mainWindow, {
-		type: "info",
-		title: "Nova Atualização",
-		message:
-			"Uma nova atualização está disponível. Baixando agora...",
-	});
+	mainWindow.webContents.send(
+		"update_downloaded"
+	);
 });
 
 ipcMain.on("restart_app", () => {
