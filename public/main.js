@@ -14,10 +14,10 @@ let mainWindow;
 
 if (process.env.NODE_ENV === "development") {
 	autoUpdater.autoDownload = false;
-	autoUpdater.autoInstallOnAppQuit = false;
 	setInterval(() => {
-		autoUpdater.checkForUpdatesAndNotify();
+		autoUpdater.checkForUpdates();
 	}, 10000);
+	autoUpdater.autoInstallOnAppQuit = false;
 }
 
 const path = join(
@@ -58,16 +58,20 @@ autoUpdater.on("update-available", () => {
 		})
 		.then((result) => {
 			if (result.response === 0) {
-				autoUpdater.checkForUpdates();
-				return;
+				autoUpdater.downloadUpdate();
+			} else {
+				autoUpdater.quitAndInstall();
 			}
 		});
 });
 
 autoUpdater.on("update-downloaded", () => {
-	mainWindow.webContents.send(
-		"update_downloaded"
-	);
+	dialog.showMessageBox(mainWindow, {
+		type: "info",
+		title: "Nova Atualização",
+		message:
+			"Uma nova atualização está disponível. Baixando agora...",
+	});
 });
 
 ipcMain.on("restart_app", () => {
