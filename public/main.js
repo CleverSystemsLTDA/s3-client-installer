@@ -36,6 +36,10 @@ function createWindow() {
 	});
 }
 
+mainWindow.once("ready-to-show", () => {
+	mainWindow.show();
+});
+
 ipcMain.on("app_version", (event) => {
 	event.sender.send("app_version", {
 		version: app.getVersion(),
