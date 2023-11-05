@@ -49,38 +49,35 @@ ipcMain.on("app_version", (event) => {
 app.on("ready", () => {
 	autoUpdater.autoDownload = false;
 	autoUpdater.autoInstallOnAppQuit = false;
-
-	shell.openPath(resolve(path));
-
 	autoUpdater.checkForUpdatesAndNotify();
-
-	autoUpdater.on("update-available", () => {
-		dialog
-			.showMessageBox(mainWindow, {
-				type: "question",
-				title: "Atualização Disponível",
-				message:
-					"Uma nova atualização está disponível. Deseja instalá-la agora?",
-				buttons: ["Sim", "Não"],
-			})
-			.then((result) => {
-				if (result.response === 0) {
-					autoUpdater.downloadUpdate();
-				}
-			});
-	});
-
-	autoUpdater.on("update-downloaded", () => {
-		dialog.showMessageBox(mainWindow, {
-			type: "info",
-			title: "Atualização baixada",
-			message:
-				"A atualização foi baixada. Reinicie a aplicação para aplicar as mudanças.",
-			buttons: ["OK"],
-		});
-	});
-
 	createWindow();
+	shell.openPath(resolve(path));
+});
+
+autoUpdater.on("update-available", () => {
+	dialog
+		.showMessageBox(mainWindow, {
+			type: "question",
+			title: "Atualização Disponível",
+			message:
+				"Uma nova atualização está disponível. Deseja instalá-la agora?",
+			buttons: ["Sim", "Não"],
+		})
+		.then((result) => {
+			if (result.response === 0) {
+				autoUpdater.downloadUpdate();
+			}
+		});
+});
+
+autoUpdater.on("update-downloaded", () => {
+	dialog.showMessageBox(mainWindow, {
+		type: "info",
+		title: "Atualização baixada",
+		message:
+			"A atualização foi baixada. Reinicie a aplicação para aplicar as mudanças.",
+		buttons: ["OK"],
+	});
 });
 
 ipcMain.on("restart_app", () => {
