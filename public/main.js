@@ -1,4 +1,5 @@
-"use strict";const {
+"use strict";
+const {
 	app,
 	shell,
 	ipcMain,
@@ -30,7 +31,7 @@ function createWindow() {
 		titleBarStyle: "hidden",
 		width: 800,
 		height: 600,
-		show: true,
+		show: false,
 		webPreferences: {
 			nodeIntegration: true,
 		},
