@@ -14,10 +14,10 @@ let mainWindow;
 
 if (process.env.NODE_ENV === "development") {
 	autoUpdater.autoDownload = false;
+	autoUpdater.autoInstallOnAppQuit = false;
 	setInterval(() => {
 		autoUpdater.checkForUpdates();
 	}, 10000);
-	autoUpdater.autoInstallOnAppQuit = false;
 }
 
 const path = join(
@@ -27,18 +27,15 @@ const path = join(
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
+		titleBarStyle: "hidden",
 		width: 800,
 		height: 600,
-		show: false,
+		show: true,
 		webPreferences: {
 			nodeIntegration: true,
 		},
 	});
 }
-
-// mainWindow.once("ready-to-show", () => {
-// 	mainWindow.show();
-// });
 
 ipcMain.on("app_version", (event) => {
 	event.sender.send("app_version", {
