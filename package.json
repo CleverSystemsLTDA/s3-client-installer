@@ -1,6 +1,6 @@
 {
 	"name": "s3-client-installer",
-	"version": "0.3.4",
+	"version": "0.3.5",
 	"description": "SistemaDeAtualizacao",
 	"main": "public/main.js",
 	"scripts": {
