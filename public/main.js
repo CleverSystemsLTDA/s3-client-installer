@@ -27,7 +27,6 @@ const path = join(
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
-		titleBarStyle: "hidden",
 		width: 800,
 		height: 600,
 		show: true,
