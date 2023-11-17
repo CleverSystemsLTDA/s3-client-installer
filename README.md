@@ -57,6 +57,10 @@ Entre na [Release](https://github.com/CleverSystemsLTDA/s3-client-installer/rele
 
 - Ao reniciar o software irá aparecer um notificação de uma nova atualização
 
+## Bug e Melhorias:
+
+- As vezes a janela que avisa a atualização não aparece
+
 ## Possíveis _features_ para implementar:
 
 - Criar uma pipeline para gerar a _Release_ quando realizar o _push_ na _master_
