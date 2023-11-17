@@ -63,7 +63,7 @@ Entre na [Release](https://github.com/CleverSystemsLTDA/s3-client-installer/rele
 
 ## Possíveis _features_ para implementar:
 
-- Criar uma pipeline para gerar a _Release_ quando realizar o _push_ na _master_
+- Criar uma pipeline para gerar a _Release_ quando realizar o _push_ na _master_ (Exemplo: https://github.com/CleverSystemsLTDA/heartbeat/blob/master/.github/workflows/release.yml)
 - Desabilitar o SmartScreen do Windows Defender ao executar o instalador
 - Criar ambiente de desenvolvimento para teste
 
