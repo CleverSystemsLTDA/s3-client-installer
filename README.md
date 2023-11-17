@@ -49,11 +49,19 @@ Execute o comando de deploy:
 $ npm run dist
 ```
 
-Entre na [Release](https://github.com/CleverSystemsLTDA/s3-client-installer/releases) na versão gerada pelo:
+Entre na [Release](https://github.com/CleverSystemsLTDA/s3-client-installer/releases) na versão gerada:
 
 - Clique no icone de editar
 - Clique em `Publish release`
 - O status irá trocar de `Draft` para `Latest`
+
+- Ao reniciar o software irá aparecer um notificação de uma nova atualização
+
+## Possíveis _features_ para implementar:
+
+- Criar uma pipeline para gerar a _Release_ quando realizar o _push_ na _master_
+- Desabilitar o SmartScreen do Windows Defender ao executar o instalador
+- Criar ambiente de desenvolvimento para teste
 
 <hr/>
 <p align="center"><i>powered by</i><br/><br/>
