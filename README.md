@@ -38,13 +38,17 @@ publish:
 ```
 
 Como gerar um GitHub Token? [CLIQUE AQUI](https://docs.github.com/pt/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+>Deve se gerado um token da **maneira clássica**.
 
 Altere a versão do software de acordo no `package.json`
 
 Faça o commit e push das alterações
 
-Execute o comando de deploy:
+Execute o comando de deploy **utilizando git bash**:
 
+```bash
+$ export GH_TOKEN="seuToken"
+```
 ```bash
 $ npm run dist
 ```
