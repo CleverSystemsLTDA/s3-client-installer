@@ -12,13 +12,13 @@ const { resolve, join } = require("path");
 
 let mainWindow;
 
-if (process.env.NODE_ENV === "development") {
-	autoUpdater.autoDownload = false;
-	autoUpdater.autoInstallOnAppQuit = false;
-	setInterval(() => {
-		autoUpdater.checkForUpdates();
-	}, 10000);
-}
+// if (process.env.NODE_ENV === "development") {
+// 	autoUpdater.autoDownload = false;
+// 	autoUpdater.autoInstallOnAppQuit = false;
+// 	setInterval(() => {
+// 		autoUpdater.checkForUpdates();
+// 	}, 10000);
+// }
 
 const path = join(
 	process.resourcesPath,
