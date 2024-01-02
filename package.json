@@ -1,0 +1,66 @@
+{
+	"name": "s3-client-installer",
+	"version": "0.3.8",
+	"description": "SistemaDeAtualizacao",
+	"main": "public/main.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "electron .",
+		"build": "sucrase ./src -d ./public --transforms imports",
+		"dist": "npm run build & electron-builder build --win --publish always"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CleverSystemsLTDA/s3-client-installer.git"
+	},
+	"build": {
+		"appId": "com.s3client-installer.ElectronAutoUpdate",
+		"buildDependenciesFromSource": true,
+		"productName": "s3client",
+		"asar": true,
+		"files": [],
+		"extraResources": {
+			"from": "public/",
+			"to": ".",
+			"filter": [
+				"!main.js"
+			]
+		},
+		"win": {
+			"artifactName": "${productName}.${ext}",
+			"target": [
+				{
+					"target": "nsis",
+					"arch": [
+						"x64",
+						"ia32"
+					]
+				}
+			],
+			"icon": "infra/images/icon.ico"
+		},
+		"nsis": {
+			"installerIcon": "infra/images/icon.ico",
+			"uninstallerIcon": "infra/images/icon.ico",
+			"uninstallDisplayName": "s3client",
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": false
+		}
+	},
+	"keywords": [],
+	"author": "CleverSystemsLTDA",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/CleverSystemsLTDA/s3-client-installer/issues"
+	},
+	"homepage": "https://github.com/CleverSystemsLTDA/s3-client-installer#readme",
+	"devDependencies": {
+		"electron": "^27.0.2",
+		"electron-builder": "^24.6.4"
+	},
+	"dependencies": {
+		"dotenv": "^16.3.1",
+		"electron-updater": "^6.1.4",
+		"sucrase": "^3.34.0"
+	}
+}
