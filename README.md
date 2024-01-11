@@ -24,6 +24,7 @@ Adicione o executável na pasta `public`
 
 > Obervação:
 > Para a realizar o versionamento do .exe é necessário instalar o [Git Large File Storage](https://git-lfs.com/)
+> ATENÇÃO NÃO SERÁ MAIS VERSIONADO O .EXE LFS É PAGO**
 
 Crie um arquivo `electron-builder.yml` e adicione as variáveis:
 

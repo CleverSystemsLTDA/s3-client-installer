@@ -1,17 +1,17 @@
 {
 	"name": "s3-client-installer",
-	"version": "0.0.3",
+	"version": "0.3.10",
 	"description": "SistemaDeAtualizacao",
-	"main": "public/main.js",
+	"main": "src/main.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "electron .",
-		"build": "sucrase ./src -d ./public --transforms imports",
-		"dist": "npm run build & electron-builder build --win --publish always"
+		"build": "sucrase ./src -d ./build --transforms imports",
+		"dist": "electron-builder",
+		"publish": "electron-builder build --win --publish always"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/rafalmeidaclever/s3-client-installer.git"
+		"url": "git+https://github.com/CleverSystemsLTDA/s3-client-installer.git"
 	},
 	"build": {
 		"appId": "com.s3client-installer.ElectronAutoUpdate",
@@ -19,12 +19,9 @@
 		"productName": "s3client",
 		"asar": true,
 		"files": [],
-		"extraResources": {
+		"extraFiles": {
 			"from": "public/",
-			"to": ".",
-			"filter": [
-				"!main.js"
-			]
+			"to": "."
 		},
 		"win": {
 			"artifactName": "${productName}-${version}.${ext}",
@@ -44,24 +41,27 @@
 			"uninstallerIcon": "infra/images/icon.ico",
 			"uninstallDisplayName": "s3client",
 			"oneClick": false,
-			"allowToChangeInstallationDirectory": false
+			"allowToChangeInstallationDirectory": false,
+			"perMachine": true,
+			"include": "installer.nsh",
+			"runAfterFinish": false
 		}
 	},
 	"keywords": [],
 	"author": "CleverSystemsLTDA",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/rafalmeidaclever/s3-client-installer/issues"
+		"url": "https://github.com/CleverSystemsLTDA/s3-client-installer/issues"
 	},
-	"homepage": "https://github.com/rafalmeidaclever/s3-client-installer#readme",
+	"homepage": "https://github.com/CleverSystemsLTDA/s3-client-installer#readme",
 	"devDependencies": {
 		"electron": "^27.0.2",
 		"electron-builder": "^24.6.4"
 	},
 	"dependencies": {
 		"dotenv": "^16.3.1",
-		"electron-progressbar": "^2.1.0",
 		"electron-updater": "^6.1.4",
+		"eslint": "^8.52.0",
 		"sucrase": "^3.34.0"
 	}
 }
