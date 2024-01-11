@@ -1,6 +1,6 @@
 {
 	"name": "s3-client-installer",
-	"version": "0.0.4",
+	"version": "0.0.3",
 	"description": "SistemaDeAtualizacao",
 	"main": "public/main.js",
 	"scripts": {
@@ -27,7 +27,7 @@
 			]
 		},
 		"win": {
-			"artifactName": "${productName}.${ext}",
+			"artifactName": "${productName}-${version}.${ext}",
 			"target": [
 				{
 					"target": "nsis",
@@ -60,6 +60,7 @@
 	},
 	"dependencies": {
 		"dotenv": "^16.3.1",
+		"electron-progressbar": "^2.1.0",
 		"electron-updater": "^6.1.4",
 		"sucrase": "^3.34.0"
 	}

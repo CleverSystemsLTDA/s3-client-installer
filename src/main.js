@@ -1,8 +1,10 @@
 const { app, shell, ipcMain, dialog, BrowserWindow } = require("electron");
 const { autoUpdater } = require("electron-updater");
+const ProgressBar = require("electron-progressbar");
 const { resolve, join } = require("path");
 
 let mainWindow;
+let downloadPercent = 0;
 
 // if (process.env.NODE_ENV === "development") {
 // 	autoUpdater.autoDownload = false;
@@ -11,6 +13,33 @@ let mainWindow;
 // 		autoUpdater.checkForUpdates();
 // 	}, 10000);
 // }
+
+async function checkUpdate() {
+  // const response = await autoUpdater.checkForUpdatesAndNotify();
+  let progressBar = new ProgressBar({
+    indeterminate: false,
+    text: "Verificando atualizações...",
+    detail: "Aguarde",
+  });
+  progressBar
+    .on("completed", function () {
+      progressBar.detail = "Atualização finalizada. Finalizando...";
+    })
+    .on("aborted", function (value) {
+      console.info(`aborted... ${value}`);
+    })
+    .on("progress", function (value) {
+      progressBar.detail = `Baixado ${value.toFixed(2)}% de ${
+        progressBar.getOptions().maxValue
+      }%...`;
+    });
+
+  setInterval(function () {
+    if (!progressBar.isCompleted()) {
+      progressBar.value = downloadPercent;
+    }
+  }, 20);
+}
 
 const path = join(process.resourcesPath, "s3client.exe");
 
@@ -31,7 +60,7 @@ ipcMain.on("app_version", (event) => {
   });
 });
 
-app.on("ready", () => {
+app.on("ready", async () => {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
   autoUpdater.checkForUpdatesAndNotify();
@@ -50,6 +79,7 @@ autoUpdater.on("update-available", () => {
     .then((result) => {
       if (result.response === 0) {
         autoUpdater.downloadUpdate();
+        checkUpdate();
       }
     });
 });
@@ -61,13 +91,13 @@ autoUpdater.on("update-downloaded", () => {
       title: "Atualização baixada",
       message:
         "A atualização foi baixada. Reinicie a aplicação para aplicar as mudanças.",
-      buttons: ["Restart", "Depois"],
+      buttons: ["Reniciar", "Depois"],
     })
     .then((returnValue) => {
       if (returnValue.response === 0) autoUpdater.quitAndInstall();
     });
 });
 
-ipcMain.on("restart_app", () => {
-  autoUpdater.quitAndInstall();
+autoUpdater.on("download-progress", (progressObj) => {
+  downloadPercent = progressObj.percent;
 });
