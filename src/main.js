@@ -42,7 +42,7 @@ async function checkUpdate() {
 	// const response = await autoUpdater.checkForUpdatesAndNotify();
 	let progressBar = new ProgressBar({
 		indeterminate: false,
-		text: "Verificando atualizações...",
+		text: "Baixando atualizações...",
 		detail: "Aguarde",
 	});
 	progressBar
@@ -129,13 +129,7 @@ app.whenReady().then(async () => {
 	const resultUpdater = await autoUpdater.checkForUpdatesAndNotify();
 	if (resultUpdater !== null) {
 		if (resultUpdater.versionInfo.version !== app.getVersion()) {
-			return dialog.showMessageBox(mainWindow, {
-				type: "info",
-				title: "Há uma versão disponível",
-				message:
-					`Clique em ok para fazer o dowload da nova versão!`,
-				buttons: ["OK"],
-			});
+			return;
 		}
 	}
 
