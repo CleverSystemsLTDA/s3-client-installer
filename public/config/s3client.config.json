@@ -1,0 +1,37 @@
+{
+	"terminal": {
+		"idterminal": "2",
+		"posFilaLista": [
+			"0",
+			"1"
+		],
+		"avaliacao": "0",
+		"encaminhar": "0",
+		"tiposlogin": [
+			"Usuário e Senha",
+			"Usuario do Windows"
+		],
+		"tipologin": "1"
+	},
+	"server": {
+		"host": "",
+		"port": "5000",
+		"servername": "clever"
+	},
+	"panel": {
+		"paineladm": "0",
+		"tiposorientation": [
+			"1 - Horizontal",
+			"2 - Vertical"
+		],
+		"orientation": "1",
+		"confirmation": "1"
+	},
+	"evaluetion": {
+		"pessimo": "CommandOrControl+1",
+		"ruim": "CommandOrControl+2",
+		"regular": "CommandOrControl+3",
+		"bom": "CommandOrControl+4",
+		"otimo": "CommandOrControl+5"
+	}
+}
