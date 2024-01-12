@@ -1,37 +1,33 @@
 {
-	"terminal": {
-		"idterminal": "2",
-		"posFilaLista": [
-			"0",
-			"1"
-		],
-		"avaliacao": "0",
-		"encaminhar": "0",
-		"tiposlogin": [
-			"Usuário e Senha",
-			"Usuario do Windows"
-		],
-		"tipologin": "1"
-	},
-	"server": {
-		"host": "",
-		"port": "5000",
-		"servername": "clever"
-	},
-	"panel": {
-		"paineladm": "0",
-		"tiposorientation": [
-			"1 - Horizontal",
-			"2 - Vertical"
-		],
-		"orientation": "1",
-		"confirmation": "1"
-	},
-	"evaluetion": {
-		"pessimo": "CommandOrControl+1",
-		"ruim": "CommandOrControl+2",
-		"regular": "CommandOrControl+3",
-		"bom": "CommandOrControl+4",
-		"otimo": "CommandOrControl+5"
-	}
+  "terminal": {
+    "idterminal": "1",
+    "posFilaLista": ["0", "1", "2", "3"],
+    "avaliacao": "1",
+    "encaminhar": "0",
+    "tiposlogin": ["Usuário e Senha", "Usuario do Windows"],
+    "tipologin": "1"
+  },
+  "server": {
+    "host": "192.168.10.244",
+    "port": "5000",
+    "servername": "clever"
+  },
+  "panel": {
+    "notification": {
+      "audios": ["notification", "notification-2"],
+      "active": "1",
+      "audio": "notification"
+    },
+    "paineladm": "0",
+    "tiposorientation": ["1 - Horizontal", "2 - Vertical"],
+    "orientation": "1",
+    "confirmation": "1"
+  },
+  "evaluetion": {
+    "pessimo": "CommandOrControl+1",
+    "ruim": "CommandOrControl+2",
+    "regular": "CommandOrControl+3",
+    "bom": "CommandOrControl+4",
+    "otimo": "CommandOrControl+5"
+  }
 }
