@@ -51,7 +51,7 @@ Execute o comando de deploy **utilizando git bash**:
 $ export GH_TOKEN="seuToken"
 ```
 ```bash
-$ npm run dist
+$ npm run publish
 ```
 
 Entre na [Release](https://github.com/CleverSystemsLTDA/s3-client-installer/releases) na versão gerada:
