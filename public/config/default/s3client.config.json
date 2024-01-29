@@ -8,9 +8,9 @@
     "tipologin": "1"
   },
   "server": {
-    "host": "192.168.10.244",
+    "host": "",
     "port": "5000",
-    "servername": "clever"
+    "servername": ""
   },
   "panel": {
     "notification": {
