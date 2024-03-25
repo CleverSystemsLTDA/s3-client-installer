@@ -1,6 +1,6 @@
 {
 	"name": "s3-client-installer",
-	"version": "2.2.0",
+	"version": "2.3.0-alpha",
 	"description": "SistemaDeAtualizacao",
 	"main": "src/main.js",
 	"scripts": {
@@ -16,6 +16,7 @@
 	"build": {
 		"appId": "com.s3client-installer.ElectronAutoUpdate",
 		"buildDependenciesFromSource": true,
+		"generateUpdatesFilesForAllChannels": true,
 		"productName": "s3client",
 		"asar": true,
 		"files": [],
@@ -60,6 +61,7 @@
 	},
 	"dependencies": {
 		"dotenv": "^16.3.1",
+		"electron-log": "^5.1.2",
 		"electron-progressbar": "^2.1.0",
 		"electron-updater": "^6.1.4",
 		"eslint": "^8.52.0",
