@@ -1,5 +1,6 @@
 const { app, dialog, BrowserWindow } = require("electron");
 const { autoUpdater } = require("electron-updater");
+const log = require('electron-log');
 const { resolve, join } = require("path");
 const fs = require("fs");
 const { execFile } = require("child_process");
@@ -10,11 +11,11 @@ let child = null;
 let downloadPercent = 0;
 
 /* if (process.env.NODE_ENV === "development") {
-	autoUpdater.autoDownload = false;
-	autoUpdater.autoInstallOnAppQuit = false;
-	setInterval(() => {
-		autoUpdater.checkForUpdates();
-	}, 10000);
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = false;
+  setInterval(() => {
+    autoUpdater.checkForUpdates();
+  }, 10000);
 } */
 
 const extraPath = join(process.resourcesPath, "..");
@@ -47,9 +48,8 @@ async function checkUpdate() {
       console.info(`aborted... ${value}`);
     })
     .on("progress", function (value) {
-      progressBar.detail = `Baixado ${value.toFixed(2)}% de ${
-        progressBar.getOptions().maxValue
-      }%...`;
+      progressBar.detail = `Baixado ${value.toFixed(2)}% de ${progressBar.getOptions().maxValue
+        }%...`;
     });
 
   setInterval(function () {
@@ -63,14 +63,20 @@ function updaterListeners() {
   autoUpdater.on("update-available", () => {
     dialog
       .showMessageBox(mainWindow, {
-        type: "info",
+        type: "question",
         title: "Atualização Disponível",
         message:
-          "Uma nova atualização está disponível",
+          "Uma nova atualização está disponível. Deseja instalá-la agora?",
+        buttons: ["Sim", "Não"],
       })
-      .then(() => {
+      .then((result) => {
+        if (result.response === 0) {
           autoUpdater.downloadUpdate();
           checkUpdate();
+        }
+        if (result.response === 1) {
+          openApplication();
+        }
       });
   });
 
@@ -80,10 +86,11 @@ function updaterListeners() {
         type: "info",
         title: "Atualização baixada",
         message:
-          "A atualização foi baixada. A aplicação será reiniciada para aplicar as mudanças.",
+          "A atualização foi baixada. Reinicie a aplicação para aplicar as mudanças.",
+        buttons: ["Reniciar", "Depois"],
       })
-      .then(() => {
-         autoUpdater.quitAndInstall(true, true);
+      .then((returnValue) => {
+        if (returnValue.response === 0) autoUpdater.quitAndInstall(true, true);
       });
   });
 
@@ -113,6 +120,14 @@ app.whenReady().then(async () => {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
   autoUpdater.allowDowngrade = true;
+  autoUpdater.channel = 'alpha';
+
+  autoUpdater.logger = log;
+  autoUpdater.logger.transports.file.level = 'info';
+  log.info('App starting...');
+  log.info('Channel exe: ');
+  log.info(autoUpdater.channel);
+
   createWindow();
   updaterListeners();
   const resultUpdater = await autoUpdater.checkForUpdatesAndNotify();
