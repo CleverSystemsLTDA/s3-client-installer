@@ -1,6 +1,6 @@
 {
 	"name": "s3-client-installer",
-	"version": "2.3.0-alpha",
+	"version": "2.3.0-beta",
 	"description": "SistemaDeAtualizacao",
 	"main": "src/main.js",
 	"scripts": {
@@ -17,6 +17,7 @@
 		"appId": "com.s3client-installer.ElectronAutoUpdate",
 		"buildDependenciesFromSource": true,
 		"generateUpdatesFilesForAllChannels": true,
+		"detectUpdateChannel": "true",
 		"productName": "s3client",
 		"asar": true,
 		"files": [],
