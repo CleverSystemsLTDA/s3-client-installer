@@ -1,5 +1,6 @@
 const { app, dialog, BrowserWindow } = require("electron");
 const { autoUpdater } = require("electron-updater");
+const log = require('electron-log');
 const { resolve, join } = require("path");
 const fs = require("fs");
 const { execFile } = require("child_process");
@@ -8,14 +9,6 @@ const ProgressBar = require("electron-progressbar");
 let mainWindow;
 let child = null;
 let downloadPercent = 0;
-
-/* if (process.env.NODE_ENV === "development") {
-	autoUpdater.autoDownload = false;
-	autoUpdater.autoInstallOnAppQuit = false;
-	setInterval(() => {
-		autoUpdater.checkForUpdates();
-	}, 10000);
-} */
 
 const extraPath = join(process.resourcesPath, "..");
 
@@ -47,9 +40,8 @@ async function checkUpdate() {
       console.info(`aborted... ${value}`);
     })
     .on("progress", function (value) {
-      progressBar.detail = `Baixado ${value.toFixed(2)}% de ${
-        progressBar.getOptions().maxValue
-      }%...`;
+      progressBar.detail = `Baixado ${value.toFixed(2)}% de ${progressBar.getOptions().maxValue
+        }%...`;
     });
 
   setInterval(function () {
@@ -60,30 +52,45 @@ async function checkUpdate() {
 }
 
 function updaterListeners() {
-  autoUpdater.on("update-available", () => {
-    dialog
-      .showMessageBox(mainWindow, {
-        type: "info",
-        title: "Atualização Disponível",
+  autoUpdater.on("update-available", (info) => {
+    /* log.info('update-available: ');
+    log.info(info); */
+    const arrVersion = info.version.split('-');
+    const updateChannel = arrVersion[1];
+
+    if (updateChannel === autoUpdater.channel) {
+      dialog.showMessageBox(mainWindow, {
+        type: "question",
+        title: `Atualização Disponível (${info.version})`,
         message:
-          "Uma nova atualização está disponível",
+          "Uma nova atualização está disponível. Deseja instalá-la agora?",
+        buttons: ["Sim", "Não"],
       })
-      .then(() => {
-          autoUpdater.downloadUpdate();
-          checkUpdate();
-      });
+        .then((result) => {
+          if (result.response === 0) {
+            autoUpdater.downloadUpdate();
+            checkUpdate();
+          }
+          if (result.response === 1) {
+            openApplication();
+          }
+        });
+
+    } else {
+      openApplication();
+    }
   });
 
   autoUpdater.on("update-downloaded", () => {
-    dialog
-      .showMessageBox(mainWindow, {
-        type: "info",
-        title: "Atualização baixada",
-        message:
-          "A atualização foi baixada. A aplicação será reiniciada para aplicar as mudanças.",
-      })
-      .then(() => {
-         autoUpdater.quitAndInstall(true, true);
+    dialog.showMessageBox(mainWindow, {
+      type: "info",
+      title: "Atualização baixada",
+      message:
+        "A atualização foi baixada. Reinicie a aplicação para aplicar as mudanças.",
+      buttons: ["Reniciar", "Depois"],
+    })
+      .then((returnValue) => {
+        if (returnValue.response === 0) autoUpdater.quitAndInstall(true, true);
       });
   });
 
@@ -110,12 +117,26 @@ function openApplication() {
 }
 
 app.whenReady().then(async () => {
+  log.info('App starting...');
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
+  autoUpdater.allowPrerelease = true;
   autoUpdater.allowDowngrade = true;
+  autoUpdater.channel = 'latest';
+
+  autoUpdater.logger = log;
+  autoUpdater.logger.transports.file.level = 'info';
+  log.info(`Version App: ${app.getVersion()}`);
+  log.info(`Channel: ${autoUpdater.channel}`);
+
+
   createWindow();
   updaterListeners();
   const resultUpdater = await autoUpdater.checkForUpdatesAndNotify();
+
+  /* log.info('ResultUpdater: ');
+  log.info(resultUpdater); */
+
   if (resultUpdater !== null) {
     if (resultUpdater.versionInfo.version !== app.getVersion()) {
       return;
