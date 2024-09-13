@@ -1,6 +1,6 @@
 {
 	"name": "s3-client-installer",
-	"version": "2.4.0-beta",
+	"version": "2.4.1-alpha",
 	"description": "SistemaDeAtualizacao",
 	"main": "src/main.js",
 	"scripts": {
@@ -21,10 +21,16 @@
 		"productName": "s3client",
 		"asar": true,
 		"files": [],
-		"extraFiles": {
-			"from": "public/",
-			"to": "."
-		},
+		"extraFiles": [
+			{
+				"from": "public/",
+				"to": "."
+			},
+			{
+				"from": "src/update.json",
+				"to": "."
+			}
+		],
 		"win": {
 			"artifactName": "${productName}-${version}.${ext}",
 			"target": [

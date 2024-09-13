@@ -11,8 +11,9 @@ let child = null;
 let downloadPercent = 0;
 
 const extraPath = join(process.resourcesPath, "..");
-
 const path = join(extraPath, "application.exe");
+const updateJsonFile = join(extraPath, "update.json");
+const updateJson = require(updateJsonFile);
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -25,8 +26,11 @@ function createWindow() {
   });
 }
 
+function writeJson(json) {
+  fs.writeFileSync(updateJsonFile, JSON.stringify(json));
+}
+
 async function checkUpdate() {
-  // const response = await autoUpdater.checkForUpdatesAndNotify();
   let progressBar = new ProgressBar({
     indeterminate: false,
     text: "Baixando atualizações...",
@@ -53,8 +57,6 @@ async function checkUpdate() {
 
 function updaterListeners() {
   autoUpdater.on("update-available", (info) => {
-    /* log.info('update-available: ');
-    log.info(info); */
     const arrVersion = info.version.split('-');
     const updateChannel = arrVersion[1];
 
@@ -68,6 +70,7 @@ function updaterListeners() {
       })
         .then((result) => {
           if (result.response === 0) {
+            log.info(`Update disponível: V${info.version}`);
             autoUpdater.downloadUpdate();
             checkUpdate();
           }
@@ -109,6 +112,9 @@ function updaterListeners() {
 }
 
 function openApplication() {
+  updateJson.version = app.getVersion();
+  writeJson(updateJson);
+  log.info(`Abrindo Sistema S3Client...`);
   child = execFile(require.resolve(path));
 
   child.on("close", (code) => {
@@ -117,25 +123,21 @@ function openApplication() {
 }
 
 app.whenReady().then(async () => {
+  autoUpdater.logger = log;
+  autoUpdater.logger.transports.file.level = 'info';
   log.info('App starting...');
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
   autoUpdater.allowPrerelease = true;
   autoUpdater.allowDowngrade = true;
-  autoUpdater.channel = 'beta';
+  autoUpdater.channel = 'alpha';
 
-  autoUpdater.logger = log;
-  autoUpdater.logger.transports.file.level = 'info';
   log.info(`Version App: ${app.getVersion()}`);
   log.info(`Channel: ${autoUpdater.channel}`);
-
 
   createWindow();
   updaterListeners();
   const resultUpdater = await autoUpdater.checkForUpdatesAndNotify();
-
-  /* log.info('ResultUpdater: ');
-  log.info(resultUpdater); */
 
   if (resultUpdater !== null) {
     if (resultUpdater.versionInfo.version !== app.getVersion()) {
