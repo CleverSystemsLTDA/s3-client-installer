@@ -122,7 +122,7 @@ app.whenReady().then(async () => {
   autoUpdater.autoInstallOnAppQuit = false;
   autoUpdater.allowPrerelease = true;
   autoUpdater.allowDowngrade = true;
-  autoUpdater.channel = 'latest';
+  autoUpdater.channel = 'beta';
 
   autoUpdater.logger = log;
   autoUpdater.logger.transports.file.level = 'info';
