@@ -18,6 +18,7 @@
 	"tiposorientation": ["1 - Horizontal", "2 - Vertical"],
 	"orientation": "1",
 	"confirmation": "1",
+  "fastMode": "0",
     "notification": {
       "audios": ["notification", "notification-2"],
       "active": "1",
