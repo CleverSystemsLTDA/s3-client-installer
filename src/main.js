@@ -308,7 +308,7 @@ app.whenReady().then(async () => {
   autoUpdater.autoInstallOnAppQuit = false;
   autoUpdater.allowPrerelease = true;
   autoUpdater.allowDowngrade = true;
-  autoUpdater.channel = 'latest';
+  autoUpdater.channel = 'test';
 
   log.info(`Version App: ${app.getVersion()}`);
   log.info(`Channel: ${autoUpdater.channel}`);
